@@ -1,23 +1,4 @@
 ---
-profile_rsyslog::client::syslog_server: "syslog.security.ncsa.illinois.edu"
-profile_rsyslog::client::config_global:
-  WorkDirectory:
-    value: "/var/lib/rsyslog"
-  preserveFQDN:
-    value: "on"
-  maxMessageSize:
-    value: "64k"
-profile_rsyslog::client::config_modules:
-  omrelp: {}
-  imuxsock:
-    config:
-      SysSock.Name: "/run/systemd/journal/syslog"
-  imjournal:
-    config:
-      StateFile: "imjournal.state"
-      IgnorePreviousMessages: "off"
-      Ratelimit.Interval: 600
-      Ratelimit.Burst: 2000
 profile_rsyslog::client::config_actions:
   00-ncsa-security-relp:
     type: omrelp
@@ -63,19 +44,16 @@ profile_rsyslog::client::config_actions:
     facility: "local7.*"
     config:
       file: "-/var/log/boot.log"
-# Rsyslog Relay
-profile_rsyslog::relay::relayed_hosts:
-profile_rsyslog::relay::relay_port: "1514"
-profile_rsyslog::relay::config_global:
+profile_rsyslog::client::config_custom: {}
+profile_rsyslog::client::config_global:
   WorkDirectory:
     value: "/var/lib/rsyslog"
   preserveFQDN:
     value: "on"
   maxMessageSize:
     value: "64k"
-profile_rsyslog::relay::config_modules:
+profile_rsyslog::client::config_modules:
   omrelp: {}
-  imrelp: {}
   imuxsock:
     config:
       SysSock.Name: "/run/systemd/journal/syslog"
@@ -85,11 +63,13 @@ profile_rsyslog::relay::config_modules:
       IgnorePreviousMessages: "off"
       Ratelimit.Interval: 600
       Ratelimit.Burst: 2000
-profile_rsyslog::relay::config_inputs:
-  rsyslog-relay-relp:
-    type: imrelp
-    config:
-      port: "%{alias('profile_rsyslog::relay::relay_port')}"
+profile_rsyslog::client::config_rulesets: {}
+profile_rsyslog::client::feature_packages: {}
+profile_rsyslog::client::override_default_config: {}
+profile_rsyslog::client::purge_config_files: {}
+
+# Rsyslog Relay
+profile_rsyslog::relay::allow_ip_ranges: {}
 profile_rsyslog::relay::config_actions:
   00-ncsa-security-relp:
     type: omrelp
@@ -135,6 +115,34 @@ profile_rsyslog::relay::config_actions:
     facility: "local7.*"
     config:
       file: "-/var/log/boot.log"
-profile_rsyslog::relay::config_templates: {}
-profile_rsyslog::relay::config_rulesets: {}
 profile_rsyslog::relay::config_custom: {}
+profile_rsyslog::relay::config_global:
+  WorkDirectory:
+    value: "/var/lib/rsyslog"
+  preserveFQDN:
+    value: "on"
+  maxMessageSize:
+profile_rsyslog::relay::config_inputs:
+  rsyslog-relay-relp:
+    type: imrelp
+    config:
+      port: "%{alias('profile_rsyslog::relay::relay_port')}"
+    value: "64k"
+profile_rsyslog::relay::config_modules:
+  omrelp: {}
+  imrelp: {}
+  imuxsock:
+    config:
+      SysSock.Name: "/run/systemd/journal/syslog"
+  imjournal:
+    config:
+      StateFile: "imjournal.state"
+      IgnorePreviousMessages: "off"
+      Ratelimit.Interval: 600
+      Ratelimit.Burst: 2000
+profile_rsyslog::relay::config_rulesets: {}
+profile_rsyslog::relay::config_templates: {}
+profile_rsyslog::relay::feature_packages: {}
+profile_rsyslog::relay::firewall_port_data: {}
+profile_rsyslog::relay::override_default_config: {}
+profile_rsyslog::relay::purge_config_files: {}
