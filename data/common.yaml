@@ -1,7 +1,7 @@
 ---
 profile_rsyslog::client::config_actions:
   00-ncsa-security-relp:
-    type: omrelp
+    type: "omrelp"
     config:
       target: "syslog.security.ncsa.illinois.edu"
       port: "1514"
@@ -72,7 +72,7 @@ profile_rsyslog::client::purge_config_files: {}
 profile_rsyslog::relay::allow_ip_ranges: {}
 profile_rsyslog::relay::config_actions:
   00-ncsa-security-relp:
-    type: omrelp
+    type: "omrelp"
     config:
       target: "syslog.security.ncsa.illinois.edu"
       port: "1514"
@@ -124,7 +124,7 @@ profile_rsyslog::relay::config_global:
   maxMessageSize:
 profile_rsyslog::relay::config_inputs:
   rsyslog-relay-relp:
-    type: imrelp
+    type: "imrelp"
     config:
       port: "%{alias('profile_rsyslog::relay::relay_port')}"
     value: "64k"
