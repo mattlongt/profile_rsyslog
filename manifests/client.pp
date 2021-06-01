@@ -30,7 +30,7 @@
 #
 # @param purge_config_files
 #   Purge other config file from the include dir (/etc/rsyslog.d/) or not.
-class profile::rsyslog::client (
+class profile_rsyslog::client (
   Hash    $config_actions,
   Hash    $config_custom,
   Hash    $config_global,

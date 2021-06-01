@@ -44,7 +44,7 @@
 # @param purge_config_files
 #   Purge other config file from the include dir (/etc/rsyslog.d/) or not.
 #
-class profile::rsyslog::relay (
+class profile_rsyslog::relay (
   Array[String] $allow_ip_ranges,
   Hash          $config_actions,
   Hash          $config_custom,
