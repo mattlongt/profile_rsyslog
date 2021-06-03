@@ -40,13 +40,13 @@ class profile_rsyslog::client (
   Boolean $override_default_config,
   Boolean $purge_config_files,
 ) {
-  class { 'profile_rsyslog':
+  class { 'rsyslog':
     feature_packages        => $feature_packages,
     override_default_config => $override_default_config,
     purge_config_files      => $purge_config_files,
   }
 
-  class { 'profile_rsyslog::config':
+  class { 'rsyslog::config':
     actions       => $config_actions,
     custom_config => $config_custom,
     global_config => $config_global,
