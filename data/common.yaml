@@ -64,7 +64,7 @@ profile_rsyslog::client::config_modules:
       Ratelimit.Interval: 600
       Ratelimit.Burst: 2000
 profile_rsyslog::client::config_rulesets: {}
-profile_rsyslog::client::feature_packages: {}
+profile_rsyslog::client::feature_packages: []
 profile_rsyslog::client::override_default_config: {}
 profile_rsyslog::client::purge_config_files: {}
 
